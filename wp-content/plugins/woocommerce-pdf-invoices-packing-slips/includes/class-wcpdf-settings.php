@@ -110,7 +110,11 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Settings' ) ) {
 			$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
 
 			?>
-	
+				<script type="text/javascript">
+					window.onload = function () {
+						document.getElementById("footer-thankyou").innerHTML = "If you like <strong>WooCommerce PDF Invoices & Packing Slips</strong> please leave us a <a href='https://wordpress.org/support/view/plugin-reviews/woocommerce-pdf-invoices-packing-slips?rate=5#postform'>★★★★★</a> rating. A huge thank you in advance!";
+					};
+				</script>
 				<div class="wrap">
 					<div class="icon32" id="icon-options-general"><br /></div>
 					<h2><?php _e( 'WooCommerce PDF Invoices', 'wpo_wcpdf' ); ?></h2>
@@ -130,10 +134,12 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Settings' ) ) {
 					}
 
 					?>
-					<form method="post" action="options.php">
+					<form method="post" action="options.php" id="wpo-wcpdf-settings">
 						<?php
+							do_action( 'wpo_wcpdf_before_settings', $active_tab );
 							settings_fields( 'wpo_wcpdf_'.$active_tab.'_settings' );
 							do_settings_sections( 'wpo_wcpdf_'.$active_tab.'_settings' );
+							do_action( 'wpo_wcpdf_after_settings', $active_tab );
 	
 							submit_button();
 						?>
@@ -222,6 +228,19 @@ if ( ! class_exists( 'WooCommerce_PDF_Invoices_Settings' ) ) {
 					'id'			=> 'email_pdf',
 					'options' 		=> apply_filters( 'wpo_wcpdf_wc_emails', $wc_emails ),
 					'description'	=> $tmp_path_check ? '<span class="wpo-warning">' . sprintf( __( 'It looks like the temp folder (<code>%s</code>) is not writable, check the permissions for this folder! Without having write access to this folder, the plugin will not be able to email invoices.', 'wpo_wcpdf' ), $tmp_path ).'</span>':'',
+				)
+			);
+
+			add_settings_field(
+				'disable_free',
+				__( 'Disable for free products', 'wpo_wcpdf' ),
+				array( &$this, 'checkbox_element_callback' ),
+				$option,
+				'general_settings',
+				array(
+					'menu'			=> $option,
+					'id'			=> 'disable_free',
+					'description'	=> __( "Disable automatic creation/attachment of invoices when only free products are ordered", 'wpo_wcpdf' ),
 				)
 			);
 

@@ -4,9 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" <?php language_attributes(); ?>> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
 <head>
-  <meta name="google-site-verification" content="Iv5VHhQ0UnyUE-1XV7ZNT1Bc7YWgnyOCpRieMahyBvo" />
-  <meta name='yandex-verification' content='5dfc7d905e581096' />
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <?php global $virtue; ?>
   <title><?php wp_title( '|', true, 'right' ); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

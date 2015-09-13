@@ -3,7 +3,7 @@
 Plugin Name: Simple Google Maps Short Code
 Plugin URL: http://pippinsplugins.com/simple-google-maps-short-code
 Description: Adds a simple Google Maps short code
-Version: 1.1.1
+Version: 1.1.2
 Author: Pippin Williamson
 Author URI: http://pippinsplugins.com
 Contributors: mordauk
@@ -52,7 +52,7 @@ function pw_map_shortcode( $atts ) {
 			function pw_run_map_<?php echo $map_id ; ?>(){
 				var location = new google.maps.LatLng("<?php echo $coordinates['lat']; ?>", "<?php echo $coordinates['lng']; ?>");
 				var map_options = {
-					zoom: 15,
+					zoom: <?php echo $atts['zoom']; ?>,
 					center: location,
 					scrollwheel: <?php echo 'true' === strtolower( $atts['enablescrollwheel'] ) ? '1' : '0'; ?>,
 					disableDefaultUI: <?php echo 'true' === strtolower( $atts['disablecontrols'] ) ? '1' : '0'; ?>,

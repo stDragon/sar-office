@@ -2,8 +2,8 @@
 Contributors: pomegranate
 Tags: woocommerce, pdf, invoices, packing slips, print, delivery notes, invoice, packing slip, export, email, bulk, automatic
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.5.7
+Tested up to: 4.2
+Stable tag: 1.5.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,8 @@ In the search field type "WooCommerce PDF Invoices & Packing Slips" and click Se
 3. Activate the plugin from the Plugins menu within the WordPress admin.
 
 == Frequently Asked Questions ==
+
+Make sure to check out [WooCommerce PDF Invoices & Packing Slips documentation](http://docs.wpovernight.com/woocommerce-pdf-invoices-packing-slips/) on our site - it covers most of the questions below (and more!) in more detail!
 
 = How do I create my own custom template? =
 
@@ -136,6 +138,7 @@ Some notes:
 * I have found that not all servers cope well with the font paths. If this is the case with your font, try to put the font in the root of your site and put that in the font url (i.e. `url(http://yoursite.com/fonts/myfont-italic.ttf)` )
 
 Some font links:
+
 * Japanese - http://ipafont.ipa.go.jp/index.html
 * Chinese - http://www.study-area.org/apt/firefly-font/
 
@@ -231,6 +234,42 @@ This usually only happens on batch actions. PDF creation is a memory intensive j
 4. Simple packing slip PDF
 
 == Changelog ==
+
+= 1.5.15 =
+* Fix: invoice number padding didn't work for values lower than 3
+* Tweak: WPML compatibility filter
+* Translations: Updated French (Thanks Nicolas!)
+
+= 1.5.14 =
+* Tweak: Invoice number & date edit fields moved to separate box on order edit page
+* Translations: Updated POT & Dutch
+
+= 1.5.13 =
+* Fix: Better address comparison to determine when to display alternate address
+* Tweak: Filter N/A addresses
+* Tweak: Use WooCommerce function for 2.3 discounts
+* Translations: Czech Updated (Thanks Ivo!)
+* Translations: French (minor fixes)
+
+= 1.5.12 =
+* Translations: added Danish, Updated POT & Italian
+
+= 1.5.11 =
+* Fix: Product text attributes (now checks key too)
+* Fix: Status page upload explanation typos
+
+= 1.5.10 =
+* Fix: Double check to make sure plugin doesn't attach to user emails
+
+= 1.5.9 =
+* Feature: Shorthand function to display product attributes: `$wpo_wcpdf->get_product_attribute( $attribute_name, $product )`
+
+= 1.5.8 =
+* Feature: disable invoice for free orders
+* Feature: action to insert data before & after item meta
+* Tweak: Added classes to sku & weight
+* Tweak: Hide payment method from totals (already shown in template)
+* Translations: Updated POT & Dutch
 
 = 1.5.7 =
 * Feature: Setting to show email address & phone number on invoice or packing slip (does not work on custom templates based on previous versions!)
@@ -488,5 +527,5 @@ This usually only happens on batch actions. PDF creation is a memory intensive j
 
 == Upgrade Notice ==
 
-= 1.5.7 =
+= 1.5 =
 Version 1.5 changes where temporary files are stored - everything is now stored centrally in the WP uploads folder. For backwards compatibility, this feature is turned off by default, but we recommend to use the new folders. Check the plugin Status panel for more information!

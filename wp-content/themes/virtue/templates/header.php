@@ -4,7 +4,7 @@
   <section id="topbar" class="topclass">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-sm-6 kad-topbar-left">
+        <div class="col-md-9 col-sm-6 kad-topbar-left">
           <div class="topbarmenu clearfix">
           <?php if (has_nav_menu('topbar_navigation')) :
               wp_nav_menu(array('theme_location' => 'topbar_navigation', 'menu_class' => 'sf-menu'));
@@ -44,7 +44,7 @@
                 <?php } } }?>
           </div>
         </div><!-- close col-md-6 --> 
-        <div class="col-md-6 col-sm-6 kad-topbar-right">
+        <div class="col-md-3 col-sm-6 kad-topbar-right">
           <div id="topbar-search" class="topbar-widget">
             <?php if(kadence_display_topbar_widget()) { if(is_active_sidebar('topbarright')) { dynamic_sidebar('topbarright'); } 
               } else { if(kadence_display_top_search()) {get_search_form();} 
@@ -62,7 +62,8 @@
 } else {$logocclass = 'col-md-2'; $menulclass = 'col-md-10'; }?>
   <div class="container">
     <div class="row">
-          <div class="<?php echo esc_attr($logocclass); ?> clearfix kad-header-left">
+          <!--<div class="<?php echo esc_attr($logocclass); ?> clearfix kad-header-left">-->
+	  <div class="col-md-1 clearfix kad-header-left">
             <div id="logo" class="logocase">
               <a class="brand logofont" href="<?php echo home_url(); ?>/">
                 <?php if (!empty($virtue['x1_virtue_logo_upload']['url'])) { ?>
@@ -81,18 +82,37 @@
            </div> <!-- Close #logo -->
        </div><!-- close logo span -->
        <?php if (has_nav_menu('primary_navigation')) : ?>
-         <div class="<?php echo esc_attr($menulclass); ?> kad-header-right">
+	<!--<div class="<?php echo esc_attr($menulclass); ?>">-->
+	<div class="col-md-11">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<p class="header-phone text-center"><a href="tel:+79173263970">+7 (917) 326-39-70</a></p>
+				
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<p class="header-mail text-center"><a href="#" class="callme_viewform">Заказать обратный звонок</a><p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<p class="header-mail text-center"><a href="mailto:help@sar-office.ru">help@sar-office.ru</a></p>
+			</div>
+		</div>
+		
+		</div>
+      </div> <!-- Close Row -->
+  <div class="row">
+	<!--<div class="<?php echo esc_attr($menulclass); ?> kad-header-right">-->
+	 <div class="col-xs-12 kad-header-right">
            <nav id="nav-main" class="clearfix" role="navigation">
               <?php wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => 'sf-menu')); ?>
            </nav> 
           </div> <!-- Close menuclass-->
-        <?php endif; ?>       
-    </div> <!-- Close Row -->
+        <?php endif; ?> 
+  </div>
     <?php if (has_nav_menu('mobile_navigation')) : ?>
            <div id="mobile-nav-trigger" class="nav-trigger">
               <button class="nav-trigger-case mobileclass collapsed" data-toggle="collapse" data-target=".kad-nav-collapse">
-                <div class="kad-navbtn"><i class="icon-reorder"></i></div>
-                <div class="kad-menu-name"><?php echo __('Menu', 'virtue'); ?></div>
+                <span class="kad-navbtn"><i class="icon-reorder"></i></span>
+                <span class="kad-menu-name"><?php echo __('Menu', 'virtue'); ?></span>
               </button>
             </div>
             <div id="kad-mobile-nav" class="kad-mobile-nav">

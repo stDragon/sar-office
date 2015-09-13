@@ -3,7 +3,7 @@
 Contributors: piffpaffpuff
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=K2JKYEASQBBSQ&lc=US&item_name=WooCommerce%20Print%20Invoice%20%26%20Delivery%20Note&item_number=WCDN&amount=20%2e00&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest
 Tags: delivery note, packing slip, invoice, delivery, shipping, print, order, woocommerce, woothemes, shop
-Requires at least: 3.8
+Requires at least: 4.0
 Tested up to: 4.2
 Stable tag: trunk
 License: GPLv3 or later
@@ -48,7 +48,7 @@ When your language is missing you can contribute a translation to the [GitHub re
 = Minimum Requirements =
 
 * WooCommerce 2.2 or later
-* WordPress 3.8 or later
+* WordPress 4.0 or later
 
 = Automatic installation =
 
@@ -286,6 +286,15 @@ Please [contribute your translation](https://github.com/piffpaffpuff/woocommerce
 
 == Changelog ==
 
+= Minimum Requirements: WooCommerce 2.2 =
+
+
+= 4.1.5 =
+
+* Fix - Check protocol of email permalinks
+* Fix - Show preview links on the settings page
+* Fix - Consistent privileges for users with admin access
+
 = 4.1.4 =
 
 * Fix - Double check the bulk action type to improve bulk order deletion
@@ -414,12 +423,6 @@ Please [contribute your translation](https://github.com/piffpaffpuff/woocommerce
 
 == Upgrade Notice ==
 
-= 3.0.6 =
+= 4.1.5 =
 
-Thanks everybody to help fixing the SSL issue. Please report to the support forums if you still have SSL problems after the update.
-
-= 3.0.3 =
-
-* This update works only with WooCommerce 2.1 (or later) and Wordpress 3.8 (or later). Install it only if your system meets the requirements.
-* Prior print templates aren't compatible. Read the [FAQ](http://wordpress.org/plugins/woocommerce-delivery-notes/faq/) to customize the new template.
-* Translations aren't updated, except German.
+4.1.5 requires at least WooCommerce 2.2.

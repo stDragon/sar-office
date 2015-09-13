@@ -3,7 +3,7 @@
 Plugin Name: Saphali Woocommerce Russian
 Plugin URI: http://saphali.com/saphali-woocommerce-plugin-wordpress
 Description: Saphali Woocommerce Russian - это бесплатный вордпресс плагин, который добавляет набор дополнений к интернет-магазину на Woocommerce.
-Version: 1.5.5
+Version: 1.5.6
 Author: Saphali
 Author URI: http://saphali.com/
 */
@@ -30,12 +30,15 @@ Author URI: http://saphali.com/
   ------------------------------------------------------------ */
   // Подключение валюты и локализации
  define('SAPHALI_PLUGIN_DIR_URL',plugin_dir_url(__FILE__));
- define('SAPHALI_LITE_VERSION', '1.5.5' );
+ define('SAPHALI_LITE_VERSION', '1.5.6' );
  define('SAPHALI_PLUGIN_DIR_PATH',plugin_dir_path(__FILE__));
  class saphali_lite {
  var $email_order_id;
 	function __construct() {
+		if ( version_compare( WOOCOMMERCE_VERSION, '2.2.0', '<' ) )
 		add_action('before_woocommerce_init', array($this,'load_plugin_textdomain'), 9);
+	else
+		add_action('before_woocommerce_init', array($this,'load_plugin_textdomain_th'), 9);
 		if ( version_compare( WOOCOMMERCE_VERSION, '2.1.0', '<' ) )  add_action('admin_menu', array($this,'woocommerce_saphali_admin_menu_s_l'), 9);
 		else add_action('admin_menu', array($this,'woocommerce_saphali_admin_menu_s_l'), 10);
 		
@@ -146,6 +149,9 @@ Author URI: http://saphali.com/
 	public function load_plugin_textdomain() {
 		
 		load_plugin_textdomain( 'woocommerce',  false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'themewoocommerce',  false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
+	public function load_plugin_textdomain_th() {
 		load_plugin_textdomain( 'themewoocommerce',  false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 	public function woocommerce_default_address_fields($locale) {
@@ -276,10 +282,13 @@ Author URI: http://saphali.com/
 							 $woocommerce->autoload( 'WC_Session' ); 
 							 $woocommerce->autoload( 'WC_Session_Handler' ); 
 						}  
-					} else { if(!class_exists('WC_Customer')) $woocommerce->autoload( 'WC_Customer' );  $woocommerce->autoload( 'WC_Checkout' ); if ( !version_compare( WOOCOMMERCE_VERSION, '2.2', '<' ) ) { include_once( WP_PLUGIN_DIR . '/' . str_replace( array('compatability/2.2/','compatability/2.3/'), '', WC()->template_path() ) . 'includes/abstracts/abstract-wc-session.php' ); include_once( WP_PLUGIN_DIR . '/' . str_replace( array('compatability/2.2/','compatability/2.3/'), '', WC()->template_path() ) . 'includes/class-wc-session-handler.php' );  $woocommerce->session =  new WC_Session_Handler();} else {
-						 $woocommerce->autoload( 'WC_Session' ); 
-						 $woocommerce->autoload( 'WC_Session_Handler' ); 
-					}  }
+					} else { 
+						if(!class_exists('WC_Customer')) $woocommerce->autoload( 'WC_Customer' );  $woocommerce->autoload( 'WC_Checkout' ); if ( !version_compare( WOOCOMMERCE_VERSION, '2.2', '<' ) ) { include_once( WP_PLUGIN_DIR . '/' . str_replace( array('compatability/2.2/','compatability/2.3/'), '', WC()->template_path() ) . 'includes/abstracts/abstract-wc-session.php' ); include_once( WP_PLUGIN_DIR . '/' . str_replace( array('compatability/2.2/','compatability/2.3/'), '', WC()->template_path() ) . 'includes/class-wc-session-handler.php' );  $woocommerce->session =  new WC_Session_Handler();} else {
+							 $woocommerce->autoload( 'WC_Session' ); 
+							 if ( !version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ))
+							 $woocommerce->autoload( 'WC_Session_Handler' ); 
+						}
+					}
 					if(class_exists('WC_Checkout')) {
 						if(class_exists('WC_Customer')) $woocommerce->customer =  new WC_Customer();
 						$f = new WC_Checkout();

@@ -88,6 +88,7 @@ class WC_Cart {
 		'taxes'                       => array(),
 		'shipping_taxes'              => array(),
 		'discount_cart'               => 0,
+		'discount_cart_tax'           => 0,
 		'shipping_total'              => 0,
 		'shipping_tax_total'          => 0,
 		'coupon_discount_amounts'     => array(),
@@ -186,7 +187,7 @@ class WC_Cart {
 	private function set_cart_cookies( $set = true ) {
 		if ( $set ) {
 			wc_setcookie( 'woocommerce_items_in_cart', 1 );
-			wc_setcookie( 'woocommerce_cart_hash', md5( json_encode( $this->get_cart() ) ) );
+			wc_setcookie( 'woocommerce_cart_hash', md5( json_encode( $this->get_cart_for_session() ) ) );
 		} elseif ( isset( $_COOKIE['woocommerce_items_in_cart'] ) ) {
 			wc_setcookie( 'woocommerce_items_in_cart', 0, time() - HOUR_IN_SECONDS );
 			wc_setcookie( 'woocommerce_cart_hash', '', time() - HOUR_IN_SECONDS );
@@ -247,12 +248,12 @@ class WC_Cart {
 				}
 			}
 
+			// Trigger action
+			do_action( 'woocommerce_cart_loaded_from_session', $this );
+
 			if ( $update_cart_session ) {
 				WC()->session->cart = $this->get_cart_for_session();
 			}
-
-			// Trigger action
-			do_action( 'woocommerce_cart_loaded_from_session', $this );
 
 			// Queue re-calc if subtotal is not set
 			if ( ( ! $this->subtotal && sizeof( $this->cart_contents ) > 0 ) || $update_cart_session ) {
@@ -691,8 +692,7 @@ class WC_Cart {
 		 *
 		 * @return array contents of the cart
 		 */
-		private function get_cart_for_session() {
-
+		public function get_cart_for_session() {
 			$cart_session = array();
 
 			if ( $this->get_cart() ) {
@@ -1736,17 +1736,9 @@ class WC_Cart {
 			$discount_amount = isset( $this->coupon_discount_amounts[ $code ] ) ? $this->coupon_discount_amounts[ $code ] : 0;
 
 			if ( $ex_tax ) {
-				if ( $this->prices_include_tax ) {
-					return $discount_amount - $this->get_coupon_discount_tax_amount( $code );
-				} else {
-					return $discount_amount;
-				}
+				return $discount_amount;
 			} else {
-				if ( $this->prices_include_tax ) {
-					return $discount_amount;
-				} else {
-					return $discount_amount + $this->get_coupon_discount_tax_amount( $code );
-				}
+				return $discount_amount + $this->get_coupon_discount_tax_amount( $code );
 			}
 		}
 
@@ -1819,14 +1811,15 @@ class WC_Cart {
 							$total_discount     = $discount_amount * $values['quantity'];
 							$total_discount_tax = 0;
 
-							if ( $this->prices_include_tax || $this->tax_display_cart === 'incl' ) {
-								$tax_rates           = WC_Tax::get_rates( $product->get_tax_class() );
-								$taxes               = WC_Tax::calc_tax( $discount_amount, $tax_rates, $this->prices_include_tax );
-								$total_discount_tax  = WC_Tax::get_tax_total( $taxes ) * $values['quantity'];
+							if ( wc_tax_enabled() ) {
+								$tax_rates          = WC_Tax::get_rates( $product->get_tax_class() );
+								$taxes              = WC_Tax::calc_tax( $discount_amount, $tax_rates, $this->prices_include_tax );
+								$total_discount_tax = WC_Tax::get_tax_total( $taxes ) * $values['quantity'];
+								$total_discount     = $this->prices_include_tax ? $total_discount - $total_discount_tax : $total_discount;
+								$this->discount_cart_tax += $total_discount_tax;
 							}
 
 							$this->discount_cart     += $total_discount;
-							$this->discount_cart_tax += $total_discount_tax;
 							$this->increase_coupon_discount_amount( $code, $total_discount, $total_discount_tax );
 							$this->increase_coupon_applied_count( $code, $values['quantity'] );
 						}
@@ -2175,7 +2168,6 @@ class WC_Cart {
 			}
 			return apply_filters( 'woocommerce_cart_total_discount', $total_discount, $this );
 		}
-
 
 		/**
 		 * Gets the total (product) discount amount - these are applied before tax.

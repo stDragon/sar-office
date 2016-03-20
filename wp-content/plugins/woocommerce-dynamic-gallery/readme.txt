@@ -1,9 +1,9 @@
 === WooCommerce Dynamic Gallery  ===
-Contributors: a3rev, A3 Revolution Software Development team
+Contributors: a3rev, A3 Revolution Software Development team, nguyencongtuan
 Tags: WooCommerce image gallery, WooCommerce, WooCommerce Product images, WooCommerce Product Gallery, WooCommerce Dynamic Gallery
 Requires at least: 3.8
-Tested up to: 4.2.1
-Stable tag: 1.3.5
+Tested up to: 4.3
+Stable tag: 1.4.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -158,6 +158,36 @@ You can use this plugin only when you have installed the WooCommerce plugin.
 
 
 == Changelog ==
+
+= 1.4.4 - 2015/08/28 =
+* Tweak - Tested for full compatibility with WooCommerce Version 2.4.6
+* Tweak - Added new options into Settings -> Permalinks page on Dashboard
+* Fix - Show the caption on pop-up when ColorBox pop-up is selected
+* Fix - Added 'box-sizing: initial;' for #fancybox-wrap ID to the Close button show correct on top right corner of Fancybox pop-up
+
+= 1.4.3 - 2015/08/20 =
+* Tweak - Tested for full compatibility with WooCommerce Version 2.4.4
+* Tweak - Tested for full compatibility with WordPress major version 4.3.0
+* Tweak - include new CSSMin lib from https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port into plugin framework instead of old CSSMin lib from http://code.google.com/p/cssmin/ , to avoid conflict with plugins or themes that have CSSMin lib
+* Tweak - Make __construct() function for 'Compile_Less_Sass' class instead of using a method with the same name as the class for compatibility on WP 4.3 and is deprecated on PHP4
+* Tweak - Change class name from 'lessc' to 'a3_lessc' so that it does not conflict with plugins or themes that have another Lessc lib
+* Fix - Check 'request_filesystem_credentials' function, if it does not exists then require the core php lib file from WP where it is defined
+
+= 1.4.2 - 2015/06/04 =
+* Tweak - Tested for full compatibility with WooCommerce Version 2.3.10
+* Tweak - Security Hardening. Removed all php file_put_contents functions in the plugin framework and replace with the WP_Filesystem API
+* Tweak - Security Hardening. Removed all php file_get_contents functions in the plugin framework and replace with the WP_Filesystem API
+
+= 1.4.1 - 2015/05/30 =
+* Fix - Update url of dynamic stylesheet in uploads folder to the format <code>//domain.com/</code> so it's always is correct when loaded as <code>http</code> or <code>https</code>
+
+= 1.4.0 - 2015/05/21 =
+* Feature - Added full compatibility with the Enhanced Media Library plugin.
+* Tweak - Tested for full compatibility with WordPress Version 4.2.2
+* Tweak - Tested and Tweaked for full compatibility with WooCommerce Version 2.3.9
+* Tweak - Changed Permission 777 to 755 for style folder inside the uploads folder
+* Tweak - Chmod 644 for dynamic style and .less files from uploads folder
+* Credit - Thanks to Kevin Coffel raising the EML compatability issue and unlimited access to his site to create the compatibility
 
 = 1.3.5 - 2015/05/05 =
 * Tweak - Tested for full compatibility with WordPress Version 4.2.1
@@ -389,6 +419,21 @@ You can use this plugin only when you have installed the WooCommerce plugin.
 
 
 == Upgrade Notice ==
+
+= 1.4.4 =
+Maintenance Upgrade. 2 code Tweak and 2 bug fixes for full compatibility with WooCommerce version 2.4.6
+
+= 1.4.3 =
+Major Maintenance Upgrade. 5 Code Tweaks plus 1 bug fixes for full compatibility with WordPress v 4.3.0 and WooCommerce v 2.4.4
+
+= 1.4.2 =
+Important Maintenance Upgrade. 2 x major a3rev Plugin Framework Security Hardening Tweaks plus full compatibility with WooCommerce 2.3.10
+
+= 1.4.1 =
+Maintenance Upgrade. 1 bug fix for dynamic stylesheets loaded over secure https protocol.
+
+= 1.4.0 =
+Feature Upgrade. Added full compatibility with the Enhanced Media Library plugin plus 2 security Tweaks and full compatibility with WordPress 4.2.2 and WooCommerce 2.3.9
 
 = 1.3.5 =
 Maintenance Update. 1 Bug fix for full compatibility with PHP caching plugins with 2 Image Alt and Caption text tweaks and full compatibility with WordPress version 4.2.1

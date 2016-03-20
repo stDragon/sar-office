@@ -63,7 +63,7 @@
   <div class="container">
     <div class="row">
           <!--<div class="<?php echo esc_attr($logocclass); ?> clearfix kad-header-left">-->
-	  <div class="col-md-1 clearfix kad-header-left">
+	  <div class="col-md-2 clearfix kad-header-left">
             <div id="logo" class="logocase">
               <a class="brand logofont" href="<?php echo home_url(); ?>/">
                 <?php if (!empty($virtue['x1_virtue_logo_upload']['url'])) { ?>
@@ -83,7 +83,7 @@
        </div><!-- close logo span -->
        <?php if (has_nav_menu('primary_navigation')) : ?>
 	<!--<div class="<?php echo esc_attr($menulclass); ?>">-->
-	<div class="col-md-11">
+	<div class="col-md-10">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 				<p class="header-phone text-center"><a href="tel:+79173263970">+7 (917) 326-39-70</a></p>
@@ -103,7 +103,7 @@
 	<!--<div class="<?php echo esc_attr($menulclass); ?> kad-header-right">-->
 	 <div class="col-xs-12 kad-header-right">
            <nav id="nav-main" class="clearfix" role="navigation">
-              <?php wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => 'sf-menu')); ?>
+              <?php wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => 'sf-menu nav nav-justified')); ?>
            </nav> 
           </div> <!-- Close menuclass-->
         <?php endif; ?> 
